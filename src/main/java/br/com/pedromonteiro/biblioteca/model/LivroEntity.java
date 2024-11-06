@@ -6,7 +6,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "TBL_LIVROS", schema = "BIBLIOTECA")
 public class LivroEntity {
@@ -29,43 +39,4 @@ public class LivroEntity {
     @Column(name = "COD_CATEGORIA")
     private Long categoria_id;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public Long getAutor_id() {
-        return autor_id;
-    }
-
-    public void setAutor_id(Long autor_id) {
-        this.autor_id = autor_id;
-    }
-
-    public Long getCategoria_id() {
-        return categoria_id;
-    }
-
-    public void setCategoria_id(Long categoria_id) {
-        this.categoria_id = categoria_id;
-    }
 }
