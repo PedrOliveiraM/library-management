@@ -2,10 +2,14 @@ package br.com.pedromonteiro.biblioteca.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.pedromonteiro.biblioteca.dto.LivroDto;
 import br.com.pedromonteiro.biblioteca.model.LivroEntity;
 import br.com.pedromonteiro.biblioteca.service.LivroService;
+import jakarta.validation.Valid;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +33,14 @@ public class LivroController {
     }
 
     @PostMapping("")
-    public LivroEntity createBook(@RequestBody LivroEntity livroDto) {
-
-        System.out.println(livroDto.getClass());
-        return livroDto;
+    public ResponseEntity<LivroEntity> createBook(@Valid @RequestBody LivroDto request) {
+        LivroEntity bookEntity = this.service.createBook(request);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(bookEntity.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
 }
