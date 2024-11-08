@@ -19,7 +19,14 @@ public class LivroService {
         return repository.findAll();
     }
 
-    public LivroEntity incluir(LivroDto dto) {
-    }
+    public LivroEntity createBook(LivroDto dto) {
+        LivroEntity bookEntity = LivroEntity.builder()
+                .titulo(dto.getTitulo())
+                .isbn(dto.getIsbn())
+                .autor_id(dto.getAutor_id())
+                .categoria_id(dto.getCategoria_id())
+                .build();
 
+        return repository.save(bookEntity);
+    }
 }
