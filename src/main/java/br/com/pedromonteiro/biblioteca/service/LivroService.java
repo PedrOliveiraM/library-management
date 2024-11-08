@@ -10,6 +10,7 @@ import br.com.pedromonteiro.biblioteca.dto.LivroCreateDto;
 import br.com.pedromonteiro.biblioteca.dto.LivroDto;
 import br.com.pedromonteiro.biblioteca.model.LivroEntity;
 import br.com.pedromonteiro.biblioteca.repository.LivroRepository;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class LivroService {
@@ -34,7 +35,7 @@ public class LivroService {
 
     public LivroEntity updateBook(Long id, LivroDto dto) {
         LivroEntity book = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Livro não encontrado com id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Livro não encontrado com id: " + id));
 
         if (dto.getTitulo() != null) {
             book.setTitulo(dto.getTitulo());
@@ -55,11 +56,10 @@ public class LivroService {
 
     public ResponseEntity<LivroEntity> removeBook(Long id) {
         LivroEntity removedBook = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Livro não encontrado com id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Livro não encontrado com id: " + id));
 
         repository.deleteById(id);
 
         return ResponseEntity.ok().body(removedBook);
     }
-
 }
