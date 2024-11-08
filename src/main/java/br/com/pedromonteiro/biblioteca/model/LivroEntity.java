@@ -35,6 +35,10 @@ public class LivroEntity {
     @Column(name = "COD_AUTOR", nullable = false, columnDefinition = "BIGINT COMMENT 'Código do autor do livro'")
     private Long autor_id;
 
+    // @ManyToOne(fetch = FetchType.LAZY)
+    // @JoinColumn(name = "autor_id", referencedColumnName = "id", nullable = false)
+    // private AutorEntity autor;
+
     @Column(name = "COD_CATEGORIA", nullable = false, columnDefinition = "BIGINT COMMENT 'Código da categoria do livro'")
     private Long categoria_id;
 
