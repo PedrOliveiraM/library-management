@@ -17,7 +17,6 @@ import lombok.Setter;
 
 public class LivroDto {
 
-    @NotNull(message = "O ID do livro não pode ser nulo")
     private Long id;
 
     @NotBlank(message = "O título do livro não pode estar em branco")
