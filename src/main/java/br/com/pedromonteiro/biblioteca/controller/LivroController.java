@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.pedromonteiro.biblioteca.dto.LivroCreateDto;
 import br.com.pedromonteiro.biblioteca.dto.LivroDto;
 import br.com.pedromonteiro.biblioteca.model.LivroEntity;
 import br.com.pedromonteiro.biblioteca.service.LivroService;
@@ -30,7 +29,7 @@ public class LivroController {
     private LivroService service;
 
     @PostMapping("incluir")
-    public ResponseEntity<LivroEntity> createBook(@Valid @RequestBody LivroCreateDto request) {
+    public ResponseEntity<LivroEntity> createBook(@Valid @RequestBody LivroDto request) {
         LivroEntity bookEntity = this.service.createBook(request);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()

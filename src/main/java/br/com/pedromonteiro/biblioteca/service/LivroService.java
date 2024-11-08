@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import br.com.pedromonteiro.biblioteca.dto.LivroCreateDto;
 import br.com.pedromonteiro.biblioteca.dto.LivroDto;
 import br.com.pedromonteiro.biblioteca.model.LivroEntity;
 import br.com.pedromonteiro.biblioteca.repository.LivroRepository;
@@ -18,7 +17,7 @@ public class LivroService {
     @Autowired
     private LivroRepository repository;
 
-    public LivroEntity createBook(LivroCreateDto dto) {
+    public LivroEntity createBook(LivroDto dto) {
         LivroEntity bookEntity = LivroEntity.builder()
                 .titulo(dto.getTitulo())
                 .isbn(dto.getIsbn())

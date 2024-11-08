@@ -16,7 +16,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.var;
 
 @RestControllerAdvice
-public class LivroExceptionHandler {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> handleError404(EntityNotFoundException ex) {
