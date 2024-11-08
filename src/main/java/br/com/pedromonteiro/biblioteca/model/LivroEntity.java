@@ -23,20 +23,19 @@ public class LivroEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CODIGO")
+    @Column(name = "CODIGO", unique = true, nullable = false, columnDefinition = "BIGINT COMMENT 'Código do registro'")
     private Long id;
 
-    @Column(name = "TITULO")
+    @Column(name = "TITULO", nullable = false, unique = true, columnDefinition = "VARCHAR(255) COMMENT 'Título do livro'")
     private String titulo;
 
-    @Column(name = "ISBN")
+    @Column(name = "ISBN", length = 13, nullable = false, unique = true, columnDefinition = "VARCHAR(13) COMMENT 'Código ISBN do livro'")
     private String isbn;
 
-    // ManyToOne
-    @Column(name = "COD_AUTOR")
+    @Column(name = "COD_AUTOR", nullable = false, columnDefinition = "BIGINT COMMENT 'Código do autor do livro'")
     private Long autor_id;
 
-    @Column(name = "COD_CATEGORIA")
+    @Column(name = "COD_CATEGORIA", nullable = false, columnDefinition = "BIGINT COMMENT 'Código da categoria do livro'")
     private Long categoria_id;
 
 }
