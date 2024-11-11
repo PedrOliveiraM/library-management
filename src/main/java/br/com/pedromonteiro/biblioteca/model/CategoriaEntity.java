@@ -21,7 +21,7 @@ public class CategoriaEntity {
     @Column(name = "ID", unique = true, nullable = false, columnDefinition = "BIGINT COMMENT 'Código do registro'")
     private Long id;
 
-    @Column(name = "AUTOR", unique = true, nullable = false, columnDefinition = "VARCHAR(255) COMMENT 'Nome do autor'")
+    @Column(name = "AUTOR", unique = true, nullable = false, columnDefinition = "VARCHAR(255) COMMENT 'Nome da categoria'")
     private String nome;
 
 }
