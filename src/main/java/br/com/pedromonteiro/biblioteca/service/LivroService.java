@@ -3,7 +3,6 @@ package br.com.pedromonteiro.biblioteca.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.pedromonteiro.biblioteca.dto.LivroDto;
@@ -29,11 +28,11 @@ public class LivroService {
 
     public LivroEntity createBook(LivroDto dto) {
         AutorEntity author = authorRepository.findById(dto.getAutor_id())
-                .orElseThrow(() -> new IllegalArgumentException(
+                .orElseThrow(() -> new EntityNotFoundException(
                         "Autor não encontrado com ID: " + dto.getAutor_id()));
 
         CategoriaEntity category = categoryRepository.findById(dto.getCategoria_id())
-                .orElseThrow(() -> new IllegalArgumentException(
+                .orElseThrow(() -> new EntityNotFoundException(
                         "Categoria não encontrada com ID: " + dto.getCategoria_id()));
 
         // 2. Criar a entidade Livro com as informações do DTO
@@ -62,30 +61,34 @@ public class LivroService {
             book.setIsbn(dto.getIsbn());
         }
 
-        if (!book.getAutor().getId().equals(dto.getAutor_id())) {
-            AutorEntity autor = authorRepository.findById(dto.getAutor_id())
-                    .orElseThrow(
-                            () -> new IllegalArgumentException("Autor não encontrado com ID: " + dto.getAutor_id()));
-            book.setAutor(autor);
-        }
+        if (dto.getAutor_id() != null) {
+            if (!book.getAutor().getId().equals(dto.getAutor_id())) {
+                AutorEntity autor = authorRepository.findById(dto.getAutor_id())
+                        .orElseThrow(
+                                () -> new EntityNotFoundException("Autor não encontrado com ID: " + dto.getAutor_id()));
+                book.setAutor(autor);
+            }
 
-        if (!book.getCategoria().getId().equals(dto.getCategoria_id())) {
-            CategoriaEntity categoria = categoryRepository.findById(dto.getCategoria_id())
-                    .orElseThrow(() -> new IllegalArgumentException(
-                            "Categoria não encontrada com ID: " + dto.getCategoria_id()));
-            book.setCategoria(categoria);
+        }
+        if (dto.getCategoria_id() != null) {
+            if (!book.getCategoria().getId().equals(dto.getCategoria_id())) {
+                CategoriaEntity categoria = categoryRepository.findById(dto.getCategoria_id())
+                        .orElseThrow(() -> new EntityNotFoundException(
+                                "Categoria não encontrada com ID: " + dto.getCategoria_id()));
+                book.setCategoria(categoria);
+            }
         }
 
         return bookRepository.save(book);
 
     }
 
-    public ResponseEntity<LivroEntity> removeBook(Long id) {
+    public LivroEntity removeBook(Long id) {
         LivroEntity removedBook = bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Livro não encontrado com id: " + id));
 
         bookRepository.deleteById(id);
 
-        return ResponseEntity.ok().body(removedBook);
+        return removedBook;
     }
 }
