@@ -29,7 +29,7 @@ public class LivroEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "autor_id")
-    private LivroEntity livro;
+    private AutorEntity autor;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id")
