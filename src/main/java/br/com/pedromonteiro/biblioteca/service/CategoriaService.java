@@ -25,7 +25,7 @@ public class CategoriaService {
         return repository.save(CategoryEntity);
     }
 
-    public List<CategoriaEntity> getAllCategorys() {
+    public List<CategoriaEntity> getAllCategories() {
         return repository.findAll();
     }
 
