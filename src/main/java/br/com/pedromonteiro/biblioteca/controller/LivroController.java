@@ -7,6 +7,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.pedromonteiro.biblioteca.dto.LivroDto;
 import br.com.pedromonteiro.biblioteca.model.LivroEntity;
 import br.com.pedromonteiro.biblioteca.service.LivroService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 import java.net.URI;
@@ -29,6 +30,7 @@ public class LivroController {
     private LivroService service;
 
     @PostMapping("incluir")
+    @Transactional
     public ResponseEntity<LivroEntity> createBook(@Valid @RequestBody LivroDto request) {
         LivroEntity bookEntity = this.service.createBook(request);
         URI location = ServletUriComponentsBuilder
@@ -46,6 +48,7 @@ public class LivroController {
     }
 
     @PutMapping("/alterar/{id}")
+    @Transactional
     public ResponseEntity<LivroEntity> updateBook(@PathVariable Long id, @RequestBody LivroDto request) {
         LivroEntity updatedBook = this.service.updateBook(id, request);
         return ResponseEntity.ok().body(updatedBook);
