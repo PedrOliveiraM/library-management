@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
+@Entity(name = "Autor")
 @Table(name = "TBL_AUTORES", schema = "BIBLIOTECA")
 public class AutorEntity {
 
