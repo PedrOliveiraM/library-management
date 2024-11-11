@@ -1,11 +1,6 @@
 package br.com.pedromonteiro.biblioteca.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,14 +27,12 @@ public class LivroEntity {
     @Column(name = "ISBN", length = 13, nullable = false, unique = true, columnDefinition = "VARCHAR(13) COMMENT 'Código ISBN do livro'")
     private String isbn;
 
-    @Column(name = "COD_AUTOR", nullable = false, columnDefinition = "BIGINT COMMENT 'Código do autor do livro'")
-    private Long autor_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "autor_id")
+    private LivroEntity livro;
 
     // @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn(name = "autor_id", referencedColumnName = "id", nullable = false)
-    // private AutorEntity autor;
-
-    @Column(name = "COD_CATEGORIA", nullable = false, columnDefinition = "BIGINT COMMENT 'Código da categoria do livro'")
-    private Long categoria_id;
-
+    // @JoinColumn(name = "categoria_id")
+    // private CategoriaEntity categoria_id;
+    
 }
