@@ -27,7 +27,7 @@ public class AutorService {
 
     }
 
-    public List<AutorEntity> getAllAuthor() {
+    public List<AutorEntity> getAllAuthors() {
         return repository.findAll();
 
     }
