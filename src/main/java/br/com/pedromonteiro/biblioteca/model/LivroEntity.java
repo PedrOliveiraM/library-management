@@ -9,9 +9,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity(name = "Livro")
 @Table(name = "TBL_LIVROS", schema = "BIBLIOTECA")
 public class LivroEntity {
@@ -31,8 +31,8 @@ public class LivroEntity {
     @JoinColumn(name = "autor_id")
     private LivroEntity livro;
 
-    // @ManyToOne(fetch = FetchType.LAZY);
-    // @JoinColumn(name = "categoria_id");
-    // private CategoriaEntity categoria_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id")
+    private CategoriaEntity categoria;
 
 }
