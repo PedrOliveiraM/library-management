@@ -15,14 +15,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 
-public class AutorDto {
+public class CategoriaDto {
 
     private Long id;
 
-    @NotBlank(message = "O nome do autor não pode estar em branco")
+    @NotBlank(message = "A categoria não pode estar em branco")
     private String nome;
-
-    @NotBlank(message = "A nacionalidade do autor não pode estar em branco")
-    private String nacionalidade;
 
 }
