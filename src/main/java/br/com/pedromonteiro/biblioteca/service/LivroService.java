@@ -21,8 +21,6 @@ public class LivroService {
         LivroEntity bookEntity = LivroEntity.builder()
                 .titulo(dto.getTitulo())
                 .isbn(dto.getIsbn())
-                .autor_id(dto.getAutor_id())
-                .categoria_id(dto.getCategoria_id())
                 .build();
 
         return repository.save(bookEntity);
@@ -43,10 +41,7 @@ public class LivroService {
             book.setIsbn(dto.getIsbn());
         }
         if (dto.getAutor_id() != null) {
-            book.setAutor_id(dto.getAutor_id());
-        }
-        if (dto.getCategoria_id() != null) {
-            book.setCategoria_id(dto.getCategoria_id());
+            book.setLivro(book);
         }
 
         return repository.save(book);
