@@ -18,10 +18,10 @@ public class CategoriaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false, columnDefinition = "BIGINT COMMENT 'Código do registro'")
+    @Column(name = "ID", unique = true, nullable = false, columnDefinition = "BIGINT COMMENT 'Código do registro da categoria'")
     private Long id;
 
-    @Column(name = "AUTOR", unique = true, nullable = false, columnDefinition = "VARCHAR(255) COMMENT 'Nome da categoria'")
+    @Column(name = "AUTOR", nullable = false, columnDefinition = "VARCHAR(255) COMMENT 'Nome da categoria'")
     private String nome;
 
 }

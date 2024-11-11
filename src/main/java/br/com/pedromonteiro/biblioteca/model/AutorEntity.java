@@ -18,13 +18,13 @@ public class AutorEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false, columnDefinition = "BIGINT COMMENT 'Código do registro'")
+    @Column(name = "ID", unique = true, nullable = false, columnDefinition = "BIGINT COMMENT 'Código do registro do autor'")
     private Long id;
 
-    @Column(name = "AUTOR", unique = true, nullable = false, columnDefinition = "VARCHAR(255) COMMENT 'Nome do autor'")
+    @Column(name = "AUTOR", nullable = false, columnDefinition = "VARCHAR(255) COMMENT 'Nome do autor'")
     private String nome;
 
-    @Column(name = "NACIONALIDADE", unique = true, nullable = false, columnDefinition = "VARCHAR(255) COMMENT 'Nacionalidade do autor'")
+    @Column(name = "NACIONALIDADE", nullable = false, columnDefinition = "VARCHAR(255) COMMENT 'Nacionalidade do autor'")
     private String nacionalidade;
 
 }
