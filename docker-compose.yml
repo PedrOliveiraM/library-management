@@ -10,3 +10,5 @@ services:
       MYSQL_DATABASE: biblioteca
     ports:
       - "3306:3306"
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/seed.sql
