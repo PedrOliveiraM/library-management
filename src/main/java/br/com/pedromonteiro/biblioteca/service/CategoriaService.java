@@ -3,13 +3,12 @@ package br.com.pedromonteiro.biblioteca.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import br.com.pedromonteiro.biblioteca.dto.CategoriaDto;
 import br.com.pedromonteiro.biblioteca.model.CategoriaEntity;
 import br.com.pedromonteiro.biblioteca.repository.CategoriaRepository;
-import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class CategoriaService {
