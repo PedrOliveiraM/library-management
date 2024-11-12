@@ -2,14 +2,12 @@ package br.com.pedromonteiro.biblioteca.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
+import jakarta.persistence.EntityNotFoundException;
 import br.com.pedromonteiro.biblioteca.dto.AutorDto;
 import br.com.pedromonteiro.biblioteca.model.AutorEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import br.com.pedromonteiro.biblioteca.repository.AutorRepository;
-import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class AutorService {
@@ -47,13 +45,13 @@ public class AutorService {
 
     }
 
-    public ResponseEntity<AutorEntity> removeAuthor(Long id) {
+    public AutorEntity removeAuthor(Long id) {
         AutorEntity removedAuthor = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Autor não encontrado com id: " + id));
 
         repository.deleteById(id);
 
-        return ResponseEntity.ok().body(removedAuthor);
+        return removedAuthor;
 
     }
 }
