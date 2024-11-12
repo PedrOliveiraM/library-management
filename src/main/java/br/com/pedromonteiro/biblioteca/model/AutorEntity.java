@@ -13,7 +13,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity(name = "Autor")
-@Table(name = "TBL_AUTORES", schema = "BIBLIOTECA")
+@Table(name = "TBL_AUTORES", schema = "BIBLIOTECA", uniqueConstraints = {
+        @UniqueConstraint(columnNames = { "AUTOR", "NACIONALIDADE" })
+})
 public class AutorEntity {
 
     @Id
