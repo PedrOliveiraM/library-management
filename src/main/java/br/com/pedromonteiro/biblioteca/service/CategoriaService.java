@@ -41,12 +41,12 @@ public class CategoriaService {
 
     }
 
-    public ResponseEntity<CategoriaEntity> removeCategory(Long id) {
+    public CategoriaEntity removeCategory(Long id) {
         CategoriaEntity removedCategory = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrado com id: " + id));
 
         repository.deleteById(id);
 
-        return ResponseEntity.ok().body(removedCategory);
+        return removedCategory;
     }
 }
