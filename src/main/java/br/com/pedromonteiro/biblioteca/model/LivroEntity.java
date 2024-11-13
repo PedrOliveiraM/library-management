@@ -3,6 +3,7 @@ package br.com.pedromonteiro.biblioteca.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -18,8 +19,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "Livro")
 @Table(name = "TBL_LIVROS", schema = "BIBLIOTECA")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Entity(name = "Livro")
 public class LivroEntity {
 
     @Id
@@ -35,12 +37,11 @@ public class LivroEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "autor_id")
-    @JsonManagedReference
+    @JsonIgnoreProperties("livros") // Ignora 'livros' na serialização de 'AutorEntity' para evitar loops
     private AutorEntity autor;
 
-    // teste 2
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoria_id")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIgnoreProperties("livros") // Ignora 'livros' na serialização de 'CategoriaEntity' para evitar loops
     private CategoriaEntity categoria;
 }

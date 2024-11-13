@@ -3,7 +3,10 @@ package br.com.pedromonteiro.biblioteca.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,8 +36,7 @@ public class AutorEntity {
 
     @Column(name = "NACIONALIDADE", nullable = false, columnDefinition = "VARCHAR(255) COMMENT 'Nacionalidade do autor'")
     private String nacionalidade;
-    
-    @OneToMany(mappedBy = "autor", fetch = FetchType.EAGER)
-    @JsonBackReference
+
+    @OneToMany(mappedBy = "autor")
     private List<LivroEntity> livros;
 }

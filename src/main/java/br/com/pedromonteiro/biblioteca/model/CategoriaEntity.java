@@ -3,6 +3,7 @@ package br.com.pedromonteiro.biblioteca.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -31,6 +32,5 @@ public class CategoriaEntity {
     private String nome;
 
     @OneToMany(mappedBy = "categoria", fetch = FetchType.EAGER)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private List<LivroEntity> livros;
 }
