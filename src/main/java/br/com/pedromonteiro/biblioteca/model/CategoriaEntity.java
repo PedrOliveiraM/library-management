@@ -2,7 +2,9 @@ package br.com.pedromonteiro.biblioteca.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,7 +30,7 @@ public class CategoriaEntity {
     @Column(name = "NOME", nullable = false, unique = true, columnDefinition = "VARCHAR(255) COMMENT 'Nome da categoria'")
     private String nome;
 
-    @OneToMany(mappedBy = "autor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "categoria", fetch = FetchType.EAGER)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private List<LivroEntity> livros;
 }
