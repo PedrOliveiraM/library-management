@@ -1,5 +1,7 @@
 package br.com.pedromonteiro.biblioteca.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,10 +31,12 @@ public class LivroEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "autor_id")
+    @JsonBackReference
     private AutorEntity autor;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoria_id")
+    @JsonBackReference
     private CategoriaEntity categoria;
 
 }

@@ -35,7 +35,6 @@ public class LivroService {
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Categoria não encontrada com ID: " + dto.getCategoria_id()));
 
-        // 2. Criar a entidade Livro com as informações do DTO
         LivroEntity livro = LivroEntity.builder()
                 .titulo(dto.getTitulo())
                 .isbn(dto.getIsbn())
