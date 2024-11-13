@@ -47,13 +47,13 @@ public class AutorService {
 
     }
 
-    public ResponseEntity<AutorEntity> removeAuthor(Long id) {
+    public AutorEntity removeAuthor(Long id) {
         AutorEntity removedAuthor = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Autor não encontrado com id: " + id));
 
         repository.deleteById(id);
 
-        return ResponseEntity.ok().body(removedAuthor);
+        return removedAuthor;
 
     }
 }
