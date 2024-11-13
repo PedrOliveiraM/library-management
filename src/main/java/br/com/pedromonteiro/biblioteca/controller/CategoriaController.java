@@ -7,6 +7,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.pedromonteiro.biblioteca.dto.CategoriaDto;
 import br.com.pedromonteiro.biblioteca.model.CategoriaEntity;
 import br.com.pedromonteiro.biblioteca.service.CategoriaService;
+import br.com.pedromonteiro.biblioteca.util.ApiResponse;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -31,14 +32,17 @@ public class CategoriaController {
 
     @PostMapping("incluir")
     @Transactional
-    public ResponseEntity<CategoriaEntity> createCategory(@Valid @RequestBody CategoriaDto request) {
-        CategoriaEntity CategoryEntity = this.service.createCategory(request);
+    public ResponseEntity<ApiResponse<CategoriaEntity>> createCategory(@Valid @RequestBody CategoriaDto request) {
+        CategoriaEntity categoryEntity = this.service.createCategory(request);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(CategoryEntity.getId())
+                .buildAndExpand(categoryEntity.getId())
                 .toUri();
-        return ResponseEntity.created(location).build();
+
+        ApiResponse<CategoriaEntity> response = new ApiResponse<CategoriaEntity>(201, categoryEntity,
+                "Categoria criada com sucesso");
+        return ResponseEntity.created(location).body(response);
     }
 
     @GetMapping("listar")
@@ -49,14 +53,21 @@ public class CategoriaController {
 
     @PutMapping("/alterar/{id}")
     @Transactional
-    public ResponseEntity<CategoriaEntity> updateCategory(@PathVariable Long id, @RequestBody CategoriaDto request) {
+    public ResponseEntity<ApiResponse<CategoriaEntity>> updateCategory(@PathVariable Long id,
+            @RequestBody CategoriaDto request) {
         CategoriaEntity updatedCategory = this.service.updateCategory(id, request);
-        return ResponseEntity.ok().body(updatedCategory);
+
+        ApiResponse<CategoriaEntity> response = new ApiResponse<CategoriaEntity>(200, updatedCategory,
+                "Categoria alterada com sucesso");
+        return ResponseEntity.ok().body(response);
     }
 
     @DeleteMapping("/remover/{id}")
-    public ResponseEntity<CategoriaEntity> deleteCategory(@PathVariable Long id) {
-        ResponseEntity<CategoriaEntity> removedCategory = this.service.removeCategory(id);
-        return removedCategory;
+    public ResponseEntity<ApiResponse<CategoriaEntity>> deleteCategory(@PathVariable Long id) {
+        CategoriaEntity removedCategory = this.service.removeCategory(id);
+
+        ApiResponse<CategoriaEntity> response = new ApiResponse<CategoriaEntity>(200, removedCategory,
+                "Categoria removida com sucesso");
+        return ResponseEntity.ok().body(response);
     }
 }
