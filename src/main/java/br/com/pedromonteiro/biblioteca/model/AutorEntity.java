@@ -1,5 +1,9 @@
 package br.com.pedromonteiro.biblioteca.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,5 +30,9 @@ public class AutorEntity {
 
     @Column(name = "NACIONALIDADE", nullable = false, columnDefinition = "VARCHAR(255) COMMENT 'Nacionalidade do autor'")
     private String nacionalidade;
+
+    @OneToMany(mappedBy = "autor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<LivroEntity> livros;
 
 }

@@ -2,17 +2,17 @@ package br.com.pedromonteiro.biblioteca.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import jakarta.persistence.EntityNotFoundException;
 import br.com.pedromonteiro.biblioteca.dto.LivroDto;
+import br.com.pedromonteiro.biblioteca.model.LivroEntity;
 import br.com.pedromonteiro.biblioteca.model.AutorEntity;
 import br.com.pedromonteiro.biblioteca.model.CategoriaEntity;
-import br.com.pedromonteiro.biblioteca.model.LivroEntity;
 import br.com.pedromonteiro.biblioteca.repository.AutorRepository;
-import br.com.pedromonteiro.biblioteca.repository.CategoriaRepository;
 import br.com.pedromonteiro.biblioteca.repository.LivroRepository;
-import jakarta.persistence.EntityNotFoundException;
+import br.com.pedromonteiro.biblioteca.repository.CategoriaRepository;
 
 @Service
 public class LivroService {
@@ -35,7 +35,6 @@ public class LivroService {
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Categoria não encontrada com ID: " + dto.getCategoria_id()));
 
-        // 2. Criar a entidade Livro com as informações do DTO
         LivroEntity livro = LivroEntity.builder()
                 .titulo(dto.getTitulo())
                 .isbn(dto.getIsbn())
