@@ -31,6 +31,6 @@ public class AutorEntity {
     @Column(name = "NACIONALIDADE", nullable = false, columnDefinition = "VARCHAR(255) COMMENT 'Nacionalidade do autor'")
     private String nacionalidade;
 
-    @OneToMany(mappedBy = "autor")
+    @OneToMany(mappedBy = "autor", fetch = FetchType.EAGER)
     private List<LivroEntity> livros;
 }
