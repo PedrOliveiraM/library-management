@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.pedromonteiro.biblioteca.dto.LivroDto;
+import br.com.pedromonteiro.biblioteca.dto.LivroResponseDto;
 import br.com.pedromonteiro.biblioteca.model.AutorEntity;
 import br.com.pedromonteiro.biblioteca.model.CategoriaEntity;
 import br.com.pedromonteiro.biblioteca.model.LivroEntity;
@@ -45,8 +46,21 @@ public class LivroService {
         return bookRepository.save(livro);
     }
 
-    public List<LivroEntity> getAllBooks() {
-        return bookRepository.findAll();
+    public List<LivroResponseDto> getAllBooks() {
+        return bookRepository.findAll()
+                .stream()
+                .map(this::convertToDto)
+                .toList();
+    }
+
+    private LivroResponseDto convertToDto(LivroEntity bookEntity) {
+        LivroResponseDto dto = new LivroResponseDto();
+        dto.setId(bookEntity.getId());
+        dto.setTitulo(bookEntity.getTitulo());
+        dto.setIsbn(bookEntity.getIsbn());
+        dto.setAutor(bookEntity.getAutor());
+        dto.setCategoria(bookEntity.getCategoria());
+        return dto;
     }
 
     public LivroEntity updateBook(Long id, LivroDto dto) {

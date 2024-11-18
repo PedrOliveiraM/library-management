@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.pedromonteiro.biblioteca.dto.LivroDto;
+import br.com.pedromonteiro.biblioteca.dto.LivroResponseDto;
 import br.com.pedromonteiro.biblioteca.model.LivroEntity;
 import br.com.pedromonteiro.biblioteca.service.LivroService;
 import br.com.pedromonteiro.biblioteca.util.ApiResponse;
@@ -45,8 +46,8 @@ public class LivroController {
     }
 
     @GetMapping("listar")
-    public ResponseEntity<List<LivroEntity>> getAllBooks() {
-        List<LivroEntity> books = this.service.getAllBooks();
+    public ResponseEntity<List<LivroResponseDto>> getAllBooks() {
+        List<LivroResponseDto> books = this.service.getAllBooks();
         return ResponseEntity.ok(books);
     }
 
