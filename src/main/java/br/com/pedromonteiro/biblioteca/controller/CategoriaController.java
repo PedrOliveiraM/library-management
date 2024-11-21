@@ -47,7 +47,7 @@ public class CategoriaController {
     @GetMapping("listar")
     public ResponseEntity<List<CategoriaEntity>> getAllCategories() {
         List<CategoriaEntity> categories = this.service.getAllCategories();
-        return ResponseEntity.ok(categories);
+        return ResponseEntity.ok(categories); // uso da Dto
     }
 
     @PutMapping("/alterar/{id}")

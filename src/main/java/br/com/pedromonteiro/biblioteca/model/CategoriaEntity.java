@@ -25,7 +25,4 @@ public class CategoriaEntity {
 
     @Column(name = "NOME", nullable = false, unique = true, columnDefinition = "VARCHAR(255) COMMENT 'Nome da categoria'")
     private String nome;
-
-    @OneToMany(mappedBy = "categoria", fetch = FetchType.EAGER)
-    private List<LivroEntity> livros;
 }

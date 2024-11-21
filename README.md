@@ -45,3 +45,22 @@ docker-compose up -d
 ---
 
 Sinta-se à vontade para contribuir, reportar qualquer problema ou propor melhorias! 😊
+
+#Futuras melhorias e pesquisas
+- @Builder(toBuilder = true)
+- Entity => DTO
+
+public List<LivroDTO> getAll() {
+       return livroRepository.findAll().stream()
+               .map(livroEntity -> LivroDTO.builder()
+                       .id(livroEntity.getId())
+                       .titulo(livroEntity.getTitulo())
+                       .isbn(livroEntity.getIsbn())
+                       .autorId(livroEntity.getAutor().getId())
+                       .autorNome(livroEntity.getAutor().getNome())
+                       .categoriaId(livroEntity.getCategoria().getId())
+                       .categoriaNome(livroEntity.getCategoria().getNome())
+                       .build())
+               .collect(Collectors.toList());
+   }
+ 
