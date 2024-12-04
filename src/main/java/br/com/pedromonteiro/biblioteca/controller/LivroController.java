@@ -6,7 +6,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.pedromonteiro.biblioteca.dto.LivroDto;
 import br.com.pedromonteiro.biblioteca.dto.LivroResponseDto;
-import br.com.pedromonteiro.biblioteca.model.LivroEntity;
 import br.com.pedromonteiro.biblioteca.service.LivroService;
 import br.com.pedromonteiro.biblioteca.util.ApiResponse;
 import jakarta.transaction.Transactional;
@@ -33,15 +32,15 @@ public class LivroController {
 
     @PostMapping("incluir")
     @Transactional
-    public ResponseEntity<ApiResponse<LivroEntity>> createBook(@Valid @RequestBody LivroDto request) {
-        LivroEntity bookEntity = this.service.createBook(request);
+    public ResponseEntity<ApiResponse<LivroResponseDto>> createBook(@Valid @RequestBody LivroDto request) {
+        LivroResponseDto bookDto = this.service.createBook(request);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(bookEntity.getId())
+                .buildAndExpand(bookDto.getId())
                 .toUri();
 
-        ApiResponse<LivroEntity> response = new ApiResponse<>(201, bookEntity, "Livro criado com sucesso");
+        ApiResponse<LivroResponseDto> response = new ApiResponse<>(201, bookDto, "Livro criado com sucesso");
         return ResponseEntity.created(location).body(response);
     }
 
@@ -53,19 +52,18 @@ public class LivroController {
 
     @PutMapping("/alterar/{id}")
     @Transactional
-    public ResponseEntity<ApiResponse<LivroEntity>> updateBook(@PathVariable Long id, @RequestBody LivroDto request) {
-        System.out.println(id);
-        LivroEntity updatedBook = this.service.updateBook(id, request);
+    public ResponseEntity<ApiResponse<LivroResponseDto>> updateBook(@PathVariable Long id, @RequestBody LivroDto request) {
+        LivroResponseDto updatedBookDto = this.service.updateBook(id, request);
 
-        ApiResponse<LivroEntity> response = new ApiResponse<>(200, updatedBook, "Livro atualizado com sucesso");
+        ApiResponse<LivroResponseDto> response = new ApiResponse<>(200, updatedBookDto, "Livro atualizado com sucesso");
         return ResponseEntity.ok().body(response);
     }
 
     @DeleteMapping("/remover/{id}")
-    public ResponseEntity<ApiResponse<LivroEntity>> deleteBook(@PathVariable Long id) {
-        LivroEntity removedBook = this.service.removeBook(id);
+    public ResponseEntity<ApiResponse<LivroResponseDto>> deleteBook(@PathVariable Long id) {
+        LivroResponseDto removedBookDto = this.service.removeBook(id);
 
-        ApiResponse<LivroEntity> response = new ApiResponse<>(200, removedBook, "Livro removido com sucesso");
+        ApiResponse<LivroResponseDto> response = new ApiResponse<>(200, removedBookDto, "Livro removido com sucesso");
         return ResponseEntity.ok().body(response);
     }
 }

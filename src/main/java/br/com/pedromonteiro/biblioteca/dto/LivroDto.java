@@ -3,18 +3,11 @@ package br.com.pedromonteiro.biblioteca.dto;
 import org.hibernate.validator.constraints.Length;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Builder
-
 public class LivroDto {
 
     private Long id;
