@@ -1,7 +1,5 @@
 package br.com.pedromonteiro.biblioteca.model;
 
-import java.util.List;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
