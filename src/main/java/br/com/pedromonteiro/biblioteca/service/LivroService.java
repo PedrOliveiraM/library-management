@@ -27,7 +27,7 @@ public class LivroService {
     @Autowired
     private CategoriaRepository categoryRepository;
 
-    public LivroEntity createBook(LivroDto dto) {
+    public LivroResponseDto createBook(LivroDto dto) {
         AutorEntity author = authorRepository.findById(dto.getAutor_id())
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Autor não encontrado com ID: " + dto.getAutor_id()));
@@ -43,7 +43,8 @@ public class LivroService {
                 .categoria(category)
                 .build();
 
-        return bookRepository.save(livro);
+        LivroEntity savedBook = bookRepository.save(livro);
+        return convertToDto(savedBook);
     }
 
     public List<LivroResponseDto> getAllBooks() {
@@ -53,17 +54,7 @@ public class LivroService {
                 .toList();
     }
 
-    private LivroResponseDto convertToDto(LivroEntity bookEntity) {
-        LivroResponseDto dto = new LivroResponseDto();
-        dto.setId(bookEntity.getId());
-        dto.setTitulo(bookEntity.getTitulo());
-        dto.setIsbn(bookEntity.getIsbn());
-        dto.setAutor(bookEntity.getAutor());
-        dto.setCategoria(bookEntity.getCategoria());
-        return dto;
-    }
-
-    public LivroEntity updateBook(Long id, LivroDto dto) {
+    public LivroResponseDto updateBook(Long id, LivroDto dto) {
         LivroEntity book = bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Livro não encontrado com id: " + id));
 
@@ -81,7 +72,6 @@ public class LivroService {
                                 () -> new EntityNotFoundException("Autor não encontrado com ID: " + dto.getAutor_id()));
                 book.setAutor(autor);
             }
-
         }
         if (dto.getCategoria_id() != null) {
             if (!book.getCategoria().getId().equals(dto.getCategoria_id())) {
@@ -92,16 +82,25 @@ public class LivroService {
             }
         }
 
-        return bookRepository.save(book);
-
+        LivroEntity updatedBook = bookRepository.save(book);
+        return convertToDto(updatedBook);
     }
 
-    public LivroEntity removeBook(Long id) {
+    public LivroResponseDto removeBook(Long id) {
         LivroEntity removedBook = bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Livro não encontrado com id: " + id));
 
         bookRepository.deleteById(id);
+        return convertToDto(removedBook);
+    }
 
-        return removedBook;
+    private LivroResponseDto convertToDto(LivroEntity bookEntity) {
+        LivroResponseDto dto = new LivroResponseDto();
+        dto.setId(bookEntity.getId());
+        dto.setTitulo(bookEntity.getTitulo());
+        dto.setIsbn(bookEntity.getIsbn());
+        dto.setAutor(bookEntity.getAutor());
+        dto.setCategoria(bookEntity.getCategoria());
+        return dto;
     }
 }

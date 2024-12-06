@@ -1,9 +1,11 @@
 package br.com.pedromonteiro.biblioteca.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
+
 import br.com.pedromonteiro.biblioteca.dto.AutorDto;
 import br.com.pedromonteiro.biblioteca.model.AutorEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +17,23 @@ public class AutorService {
     @Autowired
     private AutorRepository repository;
 
-    public AutorEntity createAuthor(AutorDto dto) {
+    public AutorDto createAuthor(AutorDto dto) {
         AutorEntity authorEntity = AutorEntity.builder()
                 .nome(dto.getNome())
                 .nacionalidade(dto.getNacionalidade())
                 .build();
 
-        return repository.save(authorEntity);
-
+        AutorEntity savedAuthor = repository.save(authorEntity);
+        return mapToDto(savedAuthor);
     }
 
-    public List<AutorEntity> getAllAuthors() {
-        return repository.findAll();
-
+    public List<AutorDto> getAllAuthors() {
+        return repository.findAll().stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
     }
 
-    public AutorEntity updateAuthor(Long id, AutorDto dto) {
+    public AutorDto updateAuthor(Long id, AutorDto dto) {
         AutorEntity author = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Autor não encontrado com id: " + id));
 
@@ -41,17 +44,23 @@ public class AutorService {
             author.setNacionalidade(dto.getNacionalidade());
         }
 
-        return repository.save(author);
-
+        AutorEntity updatedAuthor = repository.save(author);
+        return mapToDto(updatedAuthor);
     }
 
-    public AutorEntity removeAuthor(Long id) {
+    public AutorDto removeAuthor(Long id) {
         AutorEntity removedAuthor = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Autor não encontrado com id: " + id));
 
         repository.deleteById(id);
+        return mapToDto(removedAuthor);
+    }
 
-        return removedAuthor;
-
+    private AutorDto mapToDto(AutorEntity entity) {
+        return AutorDto.builder()
+                .id(entity.getId())
+                .nome(entity.getNome())
+                .nacionalidade(entity.getNacionalidade())
+                .build();
     }
 }

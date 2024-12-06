@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.pedromonteiro.biblioteca.dto.AutorDto;
-import br.com.pedromonteiro.biblioteca.model.AutorEntity;
 import br.com.pedromonteiro.biblioteca.service.AutorService;
 import br.com.pedromonteiro.biblioteca.util.ApiResponse;
+
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -32,39 +32,38 @@ public class AutorController {
 
     @PostMapping("incluir")
     @Transactional
-    public ResponseEntity<ApiResponse<AutorEntity>> createAuthor(@Valid @RequestBody AutorDto request) {
-        AutorEntity createdAuthor = this.service.createAuthor(request);
+    public ResponseEntity<ApiResponse<AutorDto>> createAuthor(@Valid @RequestBody AutorDto request) {
+        AutorDto createdAuthor = this.service.createAuthor(request);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(createdAuthor.getId())
                 .toUri();
 
-        ApiResponse<AutorEntity> response = new ApiResponse<>(201, createdAuthor, "Autor criado com sucesso");
+        ApiResponse<AutorDto> response = new ApiResponse<>(201, createdAuthor, "Autor criado com sucesso");
         return ResponseEntity.created(location).body(response);
     }
 
     @GetMapping("listar")
-    public ResponseEntity<List<AutorEntity>> getAllAuthors() {
-        List<AutorEntity> authors = this.service.getAllAuthors();
+    public ResponseEntity<List<AutorDto>> getAllAuthors() {
+        List<AutorDto> authors = this.service.getAllAuthors();
         return ResponseEntity.ok(authors);
     }
 
     @PutMapping("/alterar/{id}")
     @Transactional
-    public ResponseEntity<ApiResponse<AutorEntity>> updateAuthor(@PathVariable Long id, @RequestBody AutorDto request) {
-        AutorEntity updatedAuthor = this.service.updateAuthor(id, request);
+    public ResponseEntity<ApiResponse<AutorDto>> updateAuthor(@PathVariable Long id, @RequestBody AutorDto request) {
+        AutorDto updatedAuthor = this.service.updateAuthor(id, request);
 
-        ApiResponse<AutorEntity> response = new ApiResponse<>(200, updatedAuthor, "Autor atualizado com sucesso");
+        ApiResponse<AutorDto> response = new ApiResponse<>(200, updatedAuthor, "Autor atualizado com sucesso");
         return ResponseEntity.ok().body(response);
     }
 
     @DeleteMapping("/remover/{id}")
-    public ResponseEntity<ApiResponse<AutorEntity>> deleteAuthor(@PathVariable Long id) {
-        AutorEntity removedAuthor = this.service.removeAuthor(id);
+    public ResponseEntity<ApiResponse<AutorDto>> deleteAuthor(@PathVariable Long id) {
+        AutorDto removedAuthor = this.service.removeAuthor(id);
 
-        ApiResponse<AutorEntity> response = new ApiResponse<>(200, removedAuthor, "Autor removido com sucesso");
+        ApiResponse<AutorDto> response = new ApiResponse<>(200, removedAuthor, "Autor removido com sucesso");
         return ResponseEntity.ok().body(response);
-
     }
 }
